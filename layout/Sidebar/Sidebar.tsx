@@ -1,8 +1,13 @@
 import React from "react";
-import { SidebarProps } from "./SIdebar.props";
+import Menu from "../Menu/Menu";
+import { SidebarProps } from "./Sidebar.props";
 
 const Sidebar = ({ ...props }: SidebarProps): JSX.Element => {
-  return <div {...props}>Sidebar</div>;
+  return (
+    <div {...props}>
+      <Menu />
+    </div>
+  );
 };
 
 export default Sidebar;
