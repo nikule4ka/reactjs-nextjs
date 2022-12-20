@@ -11,7 +11,8 @@ export const StyledTagh2 = styled.h1`
   font-weight: 500;
   font-size: 22px;
   line-height: 30px;
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 25px;
 `;
 
 export const StyledTagh3 = styled.h1`
