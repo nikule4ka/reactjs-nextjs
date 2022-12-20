@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps<CourseProps> = async ({
   }
 
   const firstCategoryItem = firstLevelMenu.find(
-    (menu) => menu.route === params.type
+    (menu) => menu.route === params.types
   );
   if (!firstCategoryItem) {
     return {
