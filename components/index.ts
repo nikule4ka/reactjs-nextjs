@@ -7,3 +7,6 @@ export { default as Card } from "./Card/Card";
 export { default as HhData } from "./HhData/HhData";
 export { default as Advantages } from "./Advantages/Advantages";
 export { default as Sort } from "./Sort/Sort";
+export { default as Input } from "./Input/Input";
+export { default as TextArea } from "./TextArea/TextArea";
+export { default as Search } from "./Search/Search";
