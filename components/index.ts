@@ -6,3 +6,4 @@ export { default as Rating } from "./Rating/Rating";
 export { default as Card } from "./Card/Card";
 export { default as HhData } from "./HhData/HhData";
 export { default as Advantages } from "./Advantages/Advantages";
+export { default as Sort } from "./Sort/Sort";

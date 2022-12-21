@@ -1,14 +1,27 @@
-import React from "react";
-import { Advantages, HhData, Htag, Tag } from "../../components";
+import React, { useReducer } from "react";
+import { Advantages, HhData, Htag, Sort, Tag } from "../../components";
 import { TopPageComponentProps } from "./TopPageComponent.props";
 import s from "./TopPageComponent.module.css";
 import { TopLevelCategory } from "../../interfaces/page.interface";
+import { SortEnum } from "../../components/Sort/Sort.props";
+import { sortReducer } from "./sort.reducer";
 
 const TopPageComponent = ({
   firstCategory,
   products,
   page
 }: TopPageComponentProps): JSX.Element => {
+  const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(
+    sortReducer,
+    {
+      products,
+      sort: SortEnum.Rating
+    }
+  );
+
+  const setSort = (sort: SortEnum): void => {
+    dispatchSort({ type: sort });
+  };
   return (
     <div>
       <div className={s.title}>
@@ -18,11 +31,11 @@ const TopPageComponent = ({
             {products.length}
           </Tag>
         )}
-        <span>Sorting</span>
+        <Sort sort={sort} setSort={setSort} />
       </div>
       <div>
-        {products &&
-          products.map((product) => (
+        {sortedProducts &&
+          sortedProducts.map((product) => (
             <div key={product._id}>{product.title}</div>
           ))}
       </div>
