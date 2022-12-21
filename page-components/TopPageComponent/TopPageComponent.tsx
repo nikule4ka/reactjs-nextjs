@@ -1,5 +1,5 @@
 import React from "react";
-import { HhData, Htag, Tag } from "../../components";
+import { Advantages, HhData, Htag, Tag } from "../../components";
 import { TopPageComponentProps } from "./TopPageComponent.props";
 import s from "./TopPageComponent.module.css";
 import { TopLevelCategory } from "../../interfaces/page.interface";
@@ -10,7 +10,7 @@ const TopPageComponent = ({
   page
 }: TopPageComponentProps): JSX.Element => {
   return (
-    <div className={s.wrapper}>
+    <div>
       <div className={s.title}>
         <Htag tag="h1">{page.title}</Htag>
         {products && (
@@ -33,7 +33,29 @@ const TopPageComponent = ({
           hh.com
         </Tag>
       </div>
-      {firstCategory === TopLevelCategory.Courses && <HhData {...page.hh} />}
+      {firstCategory === TopLevelCategory.Courses && page.hh && (
+        <HhData {...page.hh} />
+      )}
+
+      {page.advantages && page.advantages.length > 0 && (
+        <>
+          <Htag tag="h2">Advantages</Htag>
+          <Advantages advantages={page.advantages} />
+        </>
+      )}
+
+      {page.seoText && (
+        <div
+          className={s.seo}
+          dangerouslySetInnerHTML={{ __html: page.seoText }}
+        />
+      )}
+      <Htag tag="h2">Received skills</Htag>
+      {page.tags.map((tag) => (
+        <Tag key={tag} color={"primary"}>
+          {tag}
+        </Tag>
+      ))}
     </div>
   );
 };

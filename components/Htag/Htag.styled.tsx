@@ -11,7 +11,7 @@ export const StyledTagh2 = styled.h1`
   font-weight: 500;
   font-size: 22px;
   line-height: 30px;
-  margin-top: 0;
+  margin-top: 50px;
   margin-bottom: 25px;
 `;
 
