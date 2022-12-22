@@ -4,7 +4,7 @@ import cn from "classnames";
 
 const Tag = ({
   children,
-  size,
+  size = "s",
   color = "ghost",
   className,
   href,
