@@ -12,3 +12,5 @@ export { default as TextArea } from "./TextArea/TextArea";
 export { default as Search } from "./Search/Search";
 export { default as Product } from "./Product/Product";
 export { default as Divider } from "./Divider/Divider";
+export { default as Review } from "./Review/Review";
+export { default as ReviewForm } from "./ReviewForm/ReviewForm";
