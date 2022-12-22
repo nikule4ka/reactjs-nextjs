@@ -7,14 +7,18 @@ import Tag from "../Tag/Tag";
 import Button from "../Button/Button";
 import { deсlOfNum, priceRegex } from "../../helpres/helpers";
 import Divider from "../Divider/Divider";
+import Image from "next/image";
+import cn from "classnames";
 
 const Product = ({ product }: ProductProps): JSX.Element => {
   return (
     <Card className={s.product}>
       <div className={s.logo}>
-        <img
+        <Image
           src={process.env.NEXT_PUBLIC_DOMAIN + product.image}
           alt={product.title}
+          width={70}
+          height={70}
         />
       </div>
 
@@ -45,6 +49,7 @@ const Product = ({ product }: ProductProps): JSX.Element => {
       <div className={s.creditTitle}>Credit</div>
       <div className={s.rateTitle}>
         {product.reviewCount}
+        &#32;
         {deсlOfNum(product.reviewCount, ["відгук", "вігука", "відгуків"])}
       </div>
 
@@ -78,7 +83,7 @@ const Product = ({ product }: ProductProps): JSX.Element => {
         )}
       </div>
 
-      <Divider className={s.hr} />
+      <Divider className={cn(s.hr, s.hr2)} />
 
       <div className={s.actions}>
         <Button appearance="primary">Learn more</Button>
