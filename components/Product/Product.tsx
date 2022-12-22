@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import s from "./Product.module.css";
 import { ProductProps } from "./Product.props";
 import Card from "../Card/Card";
@@ -12,10 +12,24 @@ import cn from "classnames";
 import Review from "../Review/Review";
 import ReviewForm from "../ReviewForm/ReviewForm";
 
-const Product = ({ product }: ProductProps): JSX.Element => {
+const Product = ({
+  product,
+  className,
+  ...props
+}: ProductProps): JSX.Element => {
   const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
+
+  const reviewRef = useRef<HTMLDivElement>(null);
+
+  const scrollToReview = (): void => {
+    setIsReviewOpened(true);
+    reviewRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  };
   return (
-    <>
+    <div className={cn(className)} {...props}>
       <Card className={s.product}>
         <div className={s.logo}>
           <Image
@@ -53,9 +67,11 @@ const Product = ({ product }: ProductProps): JSX.Element => {
         <div className={s.priceTitle}>Price</div>
         <div className={s.creditTitle}>Credit</div>
         <div className={s.rateTitle}>
-          {product.reviewCount}
-          &nbsp;
-          {deсlOfNum(product.reviewCount, ["відгук", "вігука", "відгуків"])}
+          <a href="#ref" onClick={scrollToReview}>
+            {product.reviewCount}
+            &nbsp;
+            {deсlOfNum(product.reviewCount, ["відгук", "вігука", "відгуків"])}
+          </a>
         </div>
 
         <Divider className={s.hr} />
@@ -112,6 +128,7 @@ const Product = ({ product }: ProductProps): JSX.Element => {
             [s.opened]: isReviewOpened,
             [s.closed]: !isReviewOpened
           })}
+          ref={reviewRef}
         >
           {product.reviews.map((review) => (
             <div key={review._id}>
@@ -122,7 +139,7 @@ const Product = ({ product }: ProductProps): JSX.Element => {
           <ReviewForm productId={product._id} />
         </Card>
       )}
-    </>
+    </div>
   );
 };
 
