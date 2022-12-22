@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReviewFormProps } from "./ReviewForm.props";
 import cn from "classnames";
 import s from "./ReviewForm.module.css";
@@ -8,7 +8,9 @@ import TextArea from "../TextArea/TextArea";
 import Button from "../Button/Button";
 import CloseIcon from "./close.svg";
 import { useForm, Controller } from "react-hook-form";
-import { IReviewForm } from "./ReviewForm.interface";
+import { IReviewForm, IReviewResponse } from "./ReviewForm.interface";
+import axios from "axios";
+import { API } from "../../helpres/api";
 
 const ReviewForm = ({
   productId,
@@ -19,12 +21,32 @@ const ReviewForm = ({
     register,
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm<IReviewForm>();
-  console.log(productId);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isError, setIsError] = useState<string>();
 
-  const onSubmit = (data: IReviewForm): void => {
-    console.log(data);
+  const onSubmit = async (formData: IReviewForm): Promise<void> => {
+    try {
+      const { data } = await axios.post<IReviewResponse>(
+        API.review.createDemo,
+        {
+          ...formData,
+          productId
+        }
+      );
+      if (data.message) {
+        setIsSuccess(true);
+        reset();
+      } else {
+        setIsError("Something went wrong!");
+      }
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setIsError(err.response?.data);
+      }
+    }
   };
   return (
     <>
@@ -91,11 +113,28 @@ const ReviewForm = ({
             </span>
           </div>
         </div>
-        <div className={s.success}>
-          <div className={s.successTitle}>Your review has been sent</div>
-          <div>Thank you, your review will be published after verification</div>
-          <CloseIcon className={s.close} />
-        </div>
+        {isSuccess && (
+          <div className={cn(s.success, s.panel)}>
+            <div className={s.successTitle}>Your review has been sent</div>
+            <div>
+              Thank you, your review will be published after verification
+            </div>
+            <CloseIcon
+              className={s.close}
+              onClick={(): void => setIsSuccess(false)}
+            />
+          </div>
+        )}
+
+        {isError && (
+          <div className={cn(s.error, s.panel)}>
+            Something went wrong - try refreshing the page
+            <CloseIcon
+              className={s.close}
+              onClick={(): void => setIsError(undefined)}
+            />
+          </div>
+        )}
       </form>
     </>
   );

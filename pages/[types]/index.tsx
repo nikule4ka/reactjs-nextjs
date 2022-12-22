@@ -5,6 +5,7 @@ import { MenuItem } from "../../interfaces/menu.interface";
 import { firstLevelMenu } from "../../helpres/helpers";
 import { ParsedUrlQuery } from "querystring";
 import { TopLevelCategory } from "../../interfaces/page.interface";
+import { API } from "../../helpres/api";
 
 interface TypeProps extends Record<string, unknown> {
   menu: MenuItem[];
@@ -43,12 +44,9 @@ export const getStaticProps: GetStaticProps<TypeProps> = async ({
     };
   }
 
-  const { data: menu } = await axios.post<MenuItem[]>(
-    process.env.NEXT_PUBLIC_DOMAIN + "/api/top-page/find",
-    {
-      firstCategory: firstCategoryItem.id
-    }
-  );
+  const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+    firstCategory: firstCategoryItem.id
+  });
   return {
     props: {
       menu,

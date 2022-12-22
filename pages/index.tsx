@@ -12,6 +12,7 @@ import {
 import { WithLayout } from "../layout/Layout";
 import axios from "axios";
 import { MenuItem } from "../interfaces/menu.interface";
+import { API } from "../helpres/api";
 
 interface HomeProps extends Record<string, unknown> {
   menu: MenuItem[];
@@ -25,7 +26,7 @@ function Home({ menu }: HomeProps): JSX.Element {
   return (
     <>
       <Htag tag="h1">hello</Htag>
-      <Button arrow="wtite" appearance="primary">
+      <Button arrow="right" appearance="primary">
         Кнопка
       </Button>
       <Button appearance="ghost">Кнопка</Button>
@@ -53,12 +54,9 @@ export default WithLayout(Home);
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const firstCategory = 0;
-  const { data: menu } = await axios.post<MenuItem[]>(
-    process.env.NEXT_PUBLIC_DOMAIN + "/api/top-page/find",
-    {
-      firstCategory
-    }
-  );
+  const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+    firstCategory
+  });
   return {
     props: {
       menu,
