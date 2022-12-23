@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { KeyboardEvent, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import s from "./Menu.module.css";
@@ -68,6 +68,13 @@ const Menu = (): JSX.Element => {
     );
   };
 
+  const openSecondLevelKey = (key: KeyboardEvent, menuItem: string): void => {
+    if (key.code === "Space" || key.code === "Enter") {
+      key.preventDefault();
+      openSecondLevel(menuItem);
+    }
+  };
+
   const buildSecondLevel = (menuItem: FirstLevelMenuItem): JSX.Element => {
     return (
       <div className={s.secondBlock}>
@@ -82,6 +89,10 @@ const Menu = (): JSX.Element => {
           return (
             <div key={m._id.secondCategory}>
               <div
+                tabIndex={0}
+                onKeyDown={(key: KeyboardEvent): void =>
+                  openSecondLevelKey(key, m._id.secondCategory)
+                }
                 className={s.secondLevel}
                 onClick={(): void => openSecondLevel(m._id.secondCategory)}
               >
@@ -94,7 +105,7 @@ const Menu = (): JSX.Element => {
                 initial={m.isOpened ? "visible" : "hidden"}
                 animate={m.isOpened ? "visible" : "hidden"}
               >
-                {buildThirdLevel(m.pages, menuItem.route)}
+                {buildThirdLevel(m.pages, menuItem.route, m.isOpened ?? false)}
               </motion.div>
             </div>
           );
@@ -103,12 +114,17 @@ const Menu = (): JSX.Element => {
     );
   };
 
-  const buildThirdLevel = (pages: PageItem[], route: string): JSX.Element => {
+  const buildThirdLevel = (
+    pages: PageItem[],
+    route: string,
+    isOpened: boolean
+  ): JSX.Element => {
     return (
       <>
         {pages.map((p) => (
           <motion.div key={p._id} variants={variantsChildren}>
             <Link
+              tabIndex={isOpened ? 0 : -1}
               href={`/${route}/${p.alias}`}
               className={cn(s.thirdLevel, {
                 [s.thirdLevelActive]: `/${route}/${p.alias}` === router.asPath
