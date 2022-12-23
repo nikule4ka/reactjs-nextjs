@@ -9,7 +9,6 @@
 
 .header {
   grid-area: header;
-  display: none;
 }
 
 .sidebar {
@@ -28,6 +27,7 @@
   .wrapper {
     grid-template-columns: minmax(320px, 1fr);
     grid-template-areas: "header" "body" "footer";
+    gap: 10px;
   }
   .sidebar {
     display: none !important;
@@ -35,9 +35,5 @@
 
   .body {
     padding: 15px;
-  }
-
-  .header {
-    display: block;
   }
 }
