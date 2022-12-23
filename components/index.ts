@@ -14,3 +14,5 @@ export { default as Product } from "./Product/Product";
 export { default as Divider } from "./Divider/Divider";
 export { default as Review } from "./Review/Review";
 export { default as ReviewForm } from "./ReviewForm/ReviewForm";
+export { default as Up } from "./Up/Up";
+export { default as ButtonIcon } from "./ButtonIcon/ButtonIcon";
