@@ -21,7 +21,12 @@ const Up = (): JSX.Element => {
 
   return (
     <motion.div className={s.up} animate={controlls} initial={{ opacity: 0 }}>
-      <ButtonIcon appearance="primary" icon="up" onClick={scrollToTop} />
+      <ButtonIcon
+        appearance="primary"
+        aria-label="Up"
+        icon="up"
+        onClick={scrollToTop}
+      />
     </motion.div>
   );
 };
