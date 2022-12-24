@@ -12,6 +12,7 @@ import { firstLevelMenu } from "../../helpres/helpers";
 import { TopPageComponent } from "../../page-components";
 import { API } from "../../helpres/api";
 import Head from "next/head";
+import { Error404 } from "../404";
 
 interface TopPageProps extends Record<string, unknown> {
   menu: MenuItem[];
@@ -21,6 +22,9 @@ interface TopPageProps extends Record<string, unknown> {
 }
 
 function TopPage({ firstCategory, page, products }: TopPageProps): JSX.Element {
+  if (!page || !products) {
+    return <Error404 />;
+  }
   return (
     <>
       <Head>
@@ -53,7 +57,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true
+    fallback: false
   };
 };
 

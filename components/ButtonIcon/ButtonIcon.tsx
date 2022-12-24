@@ -1,6 +1,6 @@
 import s from "./ButtonIcon.module.css";
 import cn from "classnames";
-import { ButtonIconProps, icons } from "./Buttonicon.props";
+import { ButtonIconProps, icons } from "./ButtonIcon.props";
 
 const ButtonIcon = ({
   appearance,

@@ -7,7 +7,7 @@ import Tag from "../Tag/Tag";
 import Button from "../Button/Button";
 import { deсlOfNum, priceRegex } from "../../helpres/helpers";
 import Divider from "../Divider/Divider";
-import Image from "next/image";
+// import Image from "next/image";
 import cn from "classnames";
 import Review from "../Review/Review";
 import ReviewForm from "../ReviewForm/ReviewForm";
@@ -41,7 +41,7 @@ const Product = motion(
         <div className={cn(className)} {...props} ref={ref}>
           <Card className={s.product}>
             <div className={s.logo}>
-              <Image
+              <img
                 src={process.env.NEXT_PUBLIC_DOMAIN + product.image}
                 alt={product.title}
                 width={70}
