@@ -1,0 +1,8 @@
+version: "3" # optional since v1.27.0
+services:
+  app:
+    image: demo-nextjs-reactjs
+    container_name: demo-nextjs-reactjs
+    restart: always
+    ports:
+      - 3000:3000
