@@ -23,7 +23,8 @@ const ReviewForm = ({
     control,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
+    clearErrors
   } = useForm<IReviewForm>();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [isError, setIsError] = useState<string>();
@@ -63,6 +64,7 @@ const ReviewForm = ({
             })}
             error={errors.name}
             tabIndex={isOpened ? 0 : -1}
+            aria-invalid={errors.name ? "true" : "false"}
           />
           <Input
             {...register("title", {
@@ -75,6 +77,7 @@ const ReviewForm = ({
             className={s.title}
             placeholder="Review title"
             tabIndex={isOpened ? 0 : -1}
+            aria-invalid={errors.title ? "true" : "false"}
           />
           <div className={s.rating}>
             <span>Grade: </span>
@@ -107,12 +110,18 @@ const ReviewForm = ({
               }
             })}
             className={s.description}
-            placeholder="Text title"
+            placeholder="Review text"
             error={errors.description}
             tabIndex={isOpened ? 0 : -1}
+            aria-label="Review text"
+            aria-invalid={errors.description ? "true" : "false"}
           />
           <div className={s.submit}>
-            <Button appearance="primary" tabIndex={isOpened ? 0 : -1}>
+            <Button
+              appearance="primary"
+              tabIndex={isOpened ? 0 : -1}
+              onClick={(): void => clearErrors()}
+            >
               Send
             </Button>
             <span className={s.info}>
@@ -121,25 +130,31 @@ const ReviewForm = ({
           </div>
         </div>
         {isSuccess && (
-          <div className={cn(s.success, s.panel)}>
+          <div className={cn(s.success, s.panel)} role="alert">
             <div className={s.successTitle}>Your review has been sent</div>
             <div>
               Thank you, your review will be published after verification
             </div>
-            <CloseIcon
+            <button
               className={s.close}
               onClick={(): void => setIsSuccess(false)}
-            />
+              aria-label="Close notification"
+            >
+              <CloseIcon />
+            </button>
           </div>
         )}
 
         {isError && (
-          <div className={cn(s.error, s.panel)}>
+          <div className={cn(s.error, s.panel)} role="alert">
             Something went wrong - try refreshing the page
-            <CloseIcon
+            <button
               className={s.close}
               onClick={(): void => setIsError(undefined)}
-            />
+              aria-label="Close notification"
+            >
+              <CloseIcon />
+            </button>
           </div>
         )}
       </form>

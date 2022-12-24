@@ -18,7 +18,12 @@ const TextArea = forwardRef(
           })}
           {...props}
         />
-        {error && <span className={s.errorMessage}> {error.message}</span>}
+        {error && (
+          <span role="alert" className={s.errorMessage}>
+            {" "}
+            {error.message}
+          </span>
+        )}
       </div>
     );
   }

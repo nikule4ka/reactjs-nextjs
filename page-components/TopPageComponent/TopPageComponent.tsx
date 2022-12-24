@@ -5,6 +5,7 @@ import s from "./TopPageComponent.module.css";
 import { TopLevelCategory } from "../../interfaces/page.interface";
 import { SortEnum } from "../../components/Sort/Sort.props";
 import { sortReducer } from "./sort.reducer";
+import { useReducedMotion } from "framer-motion";
 
 const TopPageComponent = ({
   firstCategory,
@@ -18,6 +19,7 @@ const TopPageComponent = ({
       sort: SortEnum.Rating
     }
   );
+  const shouldReduceMotion = useReducedMotion();
 
   const setSort = (sort: SortEnum): void => {
     dispatchSort({ type: sort });
@@ -32,16 +34,21 @@ const TopPageComponent = ({
       <div className={s.title}>
         <Htag tag="h1">{page.title}</Htag>
         {products && (
-          <Tag color="grey" size="m">
+          <Tag color="grey" size="m" aria-label={products.length + "елементів"}>
             {products.length}
           </Tag>
         )}
         <Sort sort={sort} setSort={setSort} />
       </div>
-      <div>
+      <div role="list">
         {sortedProducts &&
           sortedProducts.map((product) => (
-            <Product layout key={product._id} product={product} />
+            <Product
+              role="listitem"
+              layout={shouldReduceMotion ? false : true}
+              key={product._id}
+              product={product}
+            />
           ))}
       </div>
       <div className={s.hhTitle}>

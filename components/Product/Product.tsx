@@ -52,18 +52,30 @@ const Product = motion(
             <div className={s.title}>{product.title}</div>
 
             <div className={s.price}>
-              {priceRegex(product.price)}
+              <span>
+                <span className="visualyHidden">Price</span>
+                {priceRegex(product.price)}
+              </span>
               {product.oldPrice && (
                 <Tag color="green" className={s.oldPrice}>
-                  {priceRegex(product.price - product.oldPrice)}
+                  <span>
+                    <span>Credit</span>
+                    {priceRegex(product.price - product.oldPrice)}
+                  </span>
                 </Tag>
               )}
             </div>
             <div className={s.credit}>
-              {priceRegex(product.credit)}{" "}
+              <span>
+                <span className="visualyHidden">Sale</span>
+                {priceRegex(product.credit)}
+              </span>
               <span className={s.month}>/ in month</span>
             </div>
             <div className={s.rating}>
+              <span className="visualyHidden">
+                {"Rating" + (product.reviewAvg ?? product.initialRating)}
+              </span>
               <Rating rating={product.reviewAvg ?? product.initialRating} />
             </div>
             <div className={s.tag}>
@@ -73,8 +85,12 @@ const Product = motion(
                 </Tag>
               ))}
             </div>
-            <div className={s.priceTitle}>Price</div>
-            <div className={s.creditTitle}>Credit</div>
+            <div className={s.priceTitle} aria-hidden={true}>
+              Price
+            </div>
+            <div className={s.creditTitle} aria-hidden={true}>
+              Credit
+            </div>
             <div className={s.rateTitle}>
               <a href="#ref" onClick={scrollToReview}>
                 {product.reviewCount}
@@ -128,6 +144,7 @@ const Product = motion(
                 arrow={isReviewOpened ? "down" : "right"}
                 className={s.reviewButton}
                 onClick={(): void => setIsReviewOpened(!isReviewOpened)}
+                aria-expanded={isReviewOpened}
               >
                 Read reviews
               </Button>

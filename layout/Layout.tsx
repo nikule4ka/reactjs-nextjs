@@ -42,9 +42,9 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       <Header className={s.header} />
 
       <Sidebar className={s.sidebar} />
-      <div className={s.body} ref={bodyRef} tabIndex={0}>
+      <main className={s.body} ref={bodyRef} tabIndex={0} role="main">
         {children}
-      </div>
+      </main>
 
       <Footer className={s.footer} />
       <Up />

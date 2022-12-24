@@ -24,7 +24,7 @@ const Search = ({ className, ...props }: SearchProps): JSX.Element => {
     });
   };
   return (
-    <div className={cn(s.search, className)} {...props}>
+    <form className={cn(s.search, className)} {...props} role="search">
       <Input
         className={s.input}
         placeholder="Search..."
@@ -32,10 +32,15 @@ const Search = ({ className, ...props }: SearchProps): JSX.Element => {
         onChange={(e): void => setSearch(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <Button className={s.button} appearance="primary" onClick={onClickSearch}>
+      <Button
+        className={s.button}
+        appearance="primary"
+        onClick={onClickSearch}
+        aria-label="search the site"
+      >
         <GlassIcon />
       </Button>
-    </div>
+    </form>
   );
 };
 

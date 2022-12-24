@@ -10,28 +10,34 @@ const Sort = ({
   className,
   ...props
 }: SortProps): JSX.Element => {
-  console.log(sort);
-
   return (
     <div className={cn(s.sort, className)} {...props}>
-      <span
+      <div className={s.sortName} id="sort">
+        Sort
+      </div>
+      <button
+        id="rating"
         onClick={(): void => setSort(SortEnum.Rating)}
         className={cn({
           [s.active]: sort === SortEnum.Rating
         })}
+        aria-selected={sort === SortEnum.Rating}
+        aria-labelledby="sort rating"
       >
         <SortIcon className={s.sortIcon} />
         Rating
-      </span>
-      <span
+      </button>
+      <button
+        id="price"
         className={cn({
           [s.active]: sort === SortEnum.Price
         })}
         onClick={(): void => setSort(SortEnum.Price)}
+        aria-selected={sort === SortEnum.Price}
       >
         <SortIcon className={s.sortIcon} />
         Price
-      </span>
+      </button>
     </div>
   );
 };
