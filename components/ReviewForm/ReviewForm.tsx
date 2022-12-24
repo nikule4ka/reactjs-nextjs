@@ -15,6 +15,7 @@ import { API } from "../../helpres/api";
 const ReviewForm = ({
   productId,
   className,
+  isOpened,
   ...props
 }: ReviewFormProps): JSX.Element => {
   const {
@@ -61,6 +62,7 @@ const ReviewForm = ({
               }
             })}
             error={errors.name}
+            tabIndex={isOpened ? 0 : -1}
           />
           <Input
             {...register("title", {
@@ -72,6 +74,7 @@ const ReviewForm = ({
             error={errors.title}
             className={s.title}
             placeholder="Review title"
+            tabIndex={isOpened ? 0 : -1}
           />
           <div className={s.rating}>
             <span>Grade: </span>
@@ -91,6 +94,7 @@ const ReviewForm = ({
                   rating={field.value}
                   setRating={field.onChange}
                   error={errors.rating}
+                  tabIndex={isOpened ? 0 : -1}
                 />
               )}
             />
@@ -105,9 +109,12 @@ const ReviewForm = ({
             className={s.description}
             placeholder="Text title"
             error={errors.description}
+            tabIndex={isOpened ? 0 : -1}
           />
           <div className={s.submit}>
-            <Button appearance="primary">Send</Button>
+            <Button appearance="primary" tabIndex={isOpened ? 0 : -1}>
+              Send
+            </Button>
             <span className={s.info}>
               * Before publication, the review will be pre-moderated and checked
             </span>
